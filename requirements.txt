@@ -1,0 +1,13 @@
+pandas
+matplotlib
+seaborn
+plotly
+scikit-learn
+streamlit
+lightgbm
+jupyterlab
+warnings
+re
+geopandas
+scipy
+folium
