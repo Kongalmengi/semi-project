@@ -9,5 +9,4 @@ jupyterlab
 geopandas
 scipy
 folium
-option_menu
-olium_static
+streamlit_option_menu
