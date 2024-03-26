@@ -17,10 +17,9 @@ import geopandas as gpd
 from sklearn.model_selection import train_test_split
 
 # 머신 평가용
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import r2_score
-from sklearn.metrics import mean_squared_error
+# from sklearn.metrics import mean_squared_error
+# from sklearn.metrics import mean_absolute_error
+# from sklearn.metrics import r2_score
 
 # 스케일링 관련
 from scipy.stats import boxcox
@@ -28,7 +27,7 @@ from scipy.special import inv_boxcox
 from sklearn.preprocessing import StandardScaler
 
 # 모델
-from sklearn.linear_model import LinearRegression
+# from sklearn.linear_model import LinearRegression
 from lightgbm import LGBMRegressor
 
 # 하이퍼파라미터 튜닝용
