@@ -10,8 +10,11 @@ import re
 import pandas as pd
 import numpy as np
 
+# 모델 불러오기 라이브러리
+import joblib
+
 # GeoPandas 관련
-import geopandas as gpd
+# import geopandas as gpd
 
 # 데이터 분할용
 from sklearn.model_selection import train_test_split
@@ -119,28 +122,12 @@ def box_cox(y_train, y_test):
     y_test_boxcox = boxcox(y_test + 1, lmbda=lambda_)
     return y_train_boxcox, y_test_boxcox, lambda_
 
-# 모델 생성 및 훈련
-@st.cache_data
-def train_model(X_train, y_train_boxcox):
-    # 모델 학습 - LightGBM
-    lgbm_regression = LGBMRegressor(random_state=11, verbose=-1)
 
-    # 탐색할 하이퍼파라미터 범위 설정
-    param_grid = {
-        'num_leaves': [15, 31, 50],
-        'learning_rate': [0.1, 0.15, 0.2],
-        'n_estimators': [200, 300, 400]
-    }
+# 모델 불러오기
+def load_model():
+    loaded_model = joblib.load('data2/best_lgbm_regression.pkl')
+    return loaded_model
 
-    # GridSearchCV 객체 생성
-    grid_search = GridSearchCV(estimator=lgbm_regression, param_grid=param_grid, cv=3)
-
-    # 모델 학습
-    grid_search.fit(X_train, y_train_boxcox)
-
-    # 최적의 estimator
-    best_lgbm_regression = grid_search.best_estimator_
-    return best_lgbm_regression
 
 # 모델 예측
 def eveluation(best_lgbm_regression, X_test, lambda_):
@@ -543,8 +530,8 @@ def expectation_content():
     # box-cox 변환
     y_train_boxcox, y_test_boxcox, lambda_ = box_cox(y_train, y_test)
 
-    # 모델 생성 및 훈련
-    best_lgbm_regression = train_model(X_train, y_train_boxcox)
+    # 훈련된 모델 불러오기
+    best_lgbm_regression = load_model()
 
     # 모델 예측
     y_pred_lgbm_grid = eveluation(best_lgbm_regression, X_test, lambda_)
@@ -889,8 +876,8 @@ def expectation_content():
 
         with tab6:
             # 슬라이더
-            wish_income_max = st.slider('시간대 희망매출 최대값(단위:백만)', 0, 3000, 3000)
-            wish_income_min = st.slider('시간대 희망매출 최소값(단위:백만)', 0, 3000, 0)
+            wish_income_max = st.slider('월 희망매출 최대값(단위:백만)', 0, 3000, 3000)
+            wish_income_min = st.slider('월 희망매출 최소값(단위:백만)', 0, 3000, 0)
 
             # 슬라이싱에 필요함-1
             sliced_EIBF_for_3 = get_sliced_EIBF_for_3(expected_income_base_df, district_point_df)

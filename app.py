@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import geopandas as gpd
+# import geopandas as gpd
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import font_manager as fm
