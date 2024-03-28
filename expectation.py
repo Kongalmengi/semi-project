@@ -506,7 +506,7 @@ def viz_5(sliced_EIBF_for_5):
 # 임대료 정보 불러오기
 @st.cache_data
 def load_rent_df():
-    df = pd.read_csv('data2\merged_rent_sales_df.csv')
+    df = pd.read_csv('data2/merged_rent_sales_df.csv')
     return df
 
 # 지출사항-1 : 임대료, 수수료, 마진율
